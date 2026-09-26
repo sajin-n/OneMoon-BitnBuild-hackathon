@@ -1,0 +1,28 @@
+{
+  "manifest_version": 3,
+  "name": "Private Phishing Detector",
+  "version": "0.1.0",
+  "description": "Collects local page signals for explainable phishing risk analysis.",
+  "permissions": [
+    "storage",
+    "tabs",
+    "webRequest"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["engine.js", "content.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "action": {
+    "default_title": "Phishing Detector",
+    "default_popup": "popup.html"
+  }
+}
