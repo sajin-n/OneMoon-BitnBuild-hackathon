@@ -1,12 +1,24 @@
-node_modules
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+build/
+out/
+
+# Test and coverage output
+coverage/
+
+# Environment files
 .env
-*.local
-dist
-build
-__pycache__
-*.pyc
-.venv
-venv
-coverage
+.env.*
+!.env.example
+
+# Logs
+*.log
+
+# OS and editor files
 .DS_Store
-*.tsbuildinfo
+Thumbs.db
+.vscode/
+.idea/

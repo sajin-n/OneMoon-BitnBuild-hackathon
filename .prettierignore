@@ -1,8 +1,0 @@
-node_modules
-dist
-build
-.venv
-venv
-__pycache__
-coverage
-pnpm-lock.yaml
