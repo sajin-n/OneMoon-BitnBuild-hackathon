@@ -1,0 +1,34 @@
+{
+  "manifest_version": 3,
+  "name": "OneMoon - Cybersecurity Extension",
+  "version": "0.1.0",
+  "description": "Real-time email and web security telemetry client",
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "OneMoon"
+  },
+  "background": {
+    "service_worker": "assets/background.js",
+    "type": "module"
+  },
+  "side_panel": {
+    "default_path": "sidepanel.html"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://mail.google.com/*"],
+      "js": ["assets/content_gmail.js"],
+      "run_at": "document_idle"
+    },
+    {
+      "matches": ["<all_urls>"],
+      "js": ["assets/content_website.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "permissions": [
+    "storage",
+    "activeTab",
+    "sidePanel"
+  ]
+}

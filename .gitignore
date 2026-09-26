@@ -1,0 +1,12 @@
+node_modules
+.env
+*.local
+dist
+build
+__pycache__
+*.pyc
+.venv
+venv
+coverage
+.DS_Store
+*.tsbuildinfo
