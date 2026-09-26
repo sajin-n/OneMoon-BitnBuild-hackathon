@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Confidential_Report_Q3_Audited.pdf</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      background: #525659;
+      color: #1f2937;
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      font-size: 13px;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+    }
+    .pdf-toolbar {
+      background: #323639;
+      color: #f1f3f4;
+      padding: 8px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .pdf-name {
+      font-size: 13px;
+      font-weight: 500;
+    }
+    .toolbar-actions {
+      display: flex;
+      gap: 8px;
+    }
+    .tool-btn {
+      background: #474b4e;
+      color: #ffffff;
+      border: 1px solid #5f6368;
+      border-radius: 2px;
+      padding: 5px 12px;
+      font-size: 12px;
+      cursor: pointer;
+    }
+    .tool-btn:hover {
+      background: #5f6368;
+    }
+    .viewer-area {
+      flex: 1;
+      overflow-y: auto;
+      display: flex;
+      justify-content: center;
+      padding: 24px 16px;
+    }
+    .doc-page {
+      background: #ffffff;
+      width: 100%;
+      max-width: 650px;
+      min-height: 800px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+      padding: 40px;
+    }
+    h1 {
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: #111827;
+      text-transform: uppercase;
+      border-bottom: 1px solid #000000;
+      padding-bottom: 6px;
+    }
+    .meta-line {
+      font-size: 11px;
+      color: #6b7280;
+      margin-bottom: 20px;
+    }
+    p {
+      font-size: 13px;
+      line-height: 1.6;
+      margin-bottom: 12px;
+      color: #374151;
+    }
+    .para-placeholder {
+      height: 10px;
+      background: #f3f4f6;
+      margin-bottom: 8px;
+      border-radius: 2px;
+    }
+  </style>
+</head>
+<body>
+  <div class="pdf-toolbar">
+    <div class="pdf-name">Confidential_Report_Q3_Audited.pdf</div>
+    <div class="toolbar-actions">
+      <button id="btn-download" class="tool-btn">Download</button>
+      <button id="btn-popout" class="tool-btn">Open in new tab</button>
+    </div>
+  </div>
+
+  <div class="viewer-area">
+    <div class="doc-page">
+      <h1>CONFIDENTIAL EXECUTIVE SUMMARY</h1>
+      <div class="meta-line">Internal Document &bull; Q3 Audit Review</div>
+
+      <p><strong>Section 1: General Findings</strong></p>
+      <div class="para-placeholder" style="width: 100%;"></div>
+      <div class="para-placeholder" style="width: 95%;"></div>
+      <div class="para-placeholder" style="width: 88%;"></div>
+
+      <p style="margin-top: 24px;"><strong>Section 2: Department Summary</strong></p>
+      <div class="para-placeholder" style="width: 100%;"></div>
+      <div class="para-placeholder" style="width: 92%;"></div>
+      <div class="para-placeholder" style="width: 96%;"></div>
+      <div class="para-placeholder" style="width: 70%;"></div>
+
+      <div style="margin-top: 40px; border-top: 1px solid #e5e7eb; padding-top: 16px; font-size: 11px; color: #9ca3af;">
+        This document preview is for demonstration and local security testing purposes.
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('btn-download').addEventListener('click', function() {
+      const demoContent = '%PDF-1.4 Confidential Report\\nSimulated document.';
+      const blob = new Blob([demoContent], { type: 'application/pdf' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'Confidential_Report_Q3_Audited.pdf';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    });
+
+    document.getElementById('btn-popout').addEventListener('click', function() {
+      window.open(window.location.href, '_blank', 'width=780,height=850');
+    });
+  </script>
+</body>
+</html>

