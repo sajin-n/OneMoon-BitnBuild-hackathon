@@ -1,0 +1,44 @@
+* { box-sizing: border-box; }
+
+:root {
+  color-scheme: light;
+  font-family: "Segoe UI", system-ui, sans-serif;
+  background: #f5f7f8;
+  color: #172225;
+}
+
+body { width: 360px; margin: 0; background: #f5f7f8; }
+.panel { padding: 20px; }
+.header, .score-row, .findings-heading, .signals { display: flex; align-items: center; }
+.header, .findings-heading { justify-content: space-between; }
+.eyebrow, .label, .timestamp { margin: 0; color: #718085; font-size: 10px; font-weight: 700; letter-spacing: .12em; }
+h1 { margin: 3px 0 0; font-size: 18px; letter-spacing: -.02em; }
+h2 { margin: 3px 0; text-transform: capitalize; font-size: 18px; }
+h3 { margin: 0; font-size: 14px; }
+.icon-button { width: 34px; height: 34px; border: 1px solid #cbd5d5; border-radius: 8px; background: white; color: #1e6b61; cursor: pointer; font-size: 21px; }
+.icon-button:hover { background: #e6f3ef; }
+.state { padding: 38px 4px 24px; color: #536267; font-size: 13px; }
+.error { color: #a63d35; }
+.score-row { gap: 14px; margin: 28px 0 20px; }
+.score-ring { width: 86px; height: 86px; display: flex; flex-direction: column; align-items: center; justify-content: center; border: 8px solid #3d8c7d; border-radius: 50%; background: white; }
+.score-ring strong { font-size: 25px; line-height: 1; }
+.score-ring span { color: #758285; font-size: 10px; }
+.hostname { max-width: 210px; margin: 7px 0 0; overflow: hidden; color: #657276; font-size: 12px; text-overflow: ellipsis; white-space: nowrap; }
+.signals { gap: 8px; margin-bottom: 22px; }
+.signals > div { flex: 1; padding: 10px 12px; border: 1px solid #dbe2e1; border-radius: 7px; background: white; }
+.signals span { display: block; color: #7a888a; font-size: 10px; text-transform: uppercase; }
+.signals strong { display: block; margin-top: 3px; font-size: 16px; }
+.findings-heading { margin-bottom: 8px; }
+.findings-heading span { min-width: 22px; padding: 3px 6px; border-radius: 10px; background: #e0ece9; color: #216b5e; font-size: 11px; text-align: center; }
+.findings { max-height: 220px; margin: 0; padding: 0; overflow-y: auto; list-style: none; }
+.finding { padding: 10px 0; border-top: 1px solid #dfe6e5; }
+.finding strong { display: block; margin-bottom: 3px; font-size: 11px; text-transform: uppercase; }
+.finding p { margin: 0; color: #566467; font-size: 12px; line-height: 1.4; }
+.finding.high strong { color: #b64137; }
+.finding.medium strong { color: #ad741e; }
+.finding.low strong { color: #48766d; }
+.timestamp { margin-top: 14px; letter-spacing: 0; text-transform: none; }
+
+.score-ring.suspicious { border-color: #c99339; }
+.score-ring.high-risk { border-color: #bb5146; }
+EOF
