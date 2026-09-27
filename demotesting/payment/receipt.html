@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Payment Receipt - City Electric &amp; Power</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      background: #eef2f6;
+      color: #1e293b;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      font-size: 13.5px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 16px;
+    }
+    .receipt-box {
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      border-radius: 4px;
+      width: 100%;
+      max-width: 420px;
+      padding: 24px;
+    }
+    h1 {
+      font-size: 16px;
+      font-weight: 700;
+      color: #15803d;
+      margin-bottom: 4px;
+    }
+    .sub-text {
+      font-size: 12.5px;
+      color: #64748b;
+      margin-bottom: 16px;
+    }
+    .summary-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+      margin-bottom: 20px;
+    }
+    .summary-table td {
+      padding: 8px 4px;
+      border-bottom: 1px solid #f1f5f9;
+    }
+    .summary-table td:last-child {
+      text-align: right;
+      font-weight: 600;
+      color: #0f172a;
+    }
+    .btn {
+      display: block;
+      width: 100%;
+      text-align: center;
+      background: #1e3a8a;
+      color: #ffffff;
+      text-decoration: none;
+      padding: 9px;
+      border-radius: 3px;
+      font-weight: 600;
+      font-size: 13.5px;
+    }
+    .btn:hover {
+      background: #172554;
+    }
+  </style>
+</head>
+<body>
+  <div class="receipt-box">
+    <h1>Transaction Complete</h1>
+    <p class="sub-text">Your bill payment has been successfully recorded.</p>
+
+    <table class="summary-table">
+      <tr>
+        <td style="color: #64748b;">Account Number</td>
+        <td>884920-A</td>
+      </tr>
+      <tr>
+        <td style="color: #64748b;">Transaction Reference</td>
+        <td>TXN-884920</td>
+      </tr>
+      <tr>
+        <td style="color: #64748b;">Amount Paid</td>
+        <td>₹1,499.00</td>
+      </tr>
+      <tr>
+        <td style="color: #64748b;">Status</td>
+        <td style="color: #15803d;">PAID</td>
+      </tr>
+    </table>
+
+    <a href="/payment/secure-verification?order=TXN8849&amount=1499" class="btn">
+      Return to Portal
+    </a>
+  </div>
+</body>
+</html>
