@@ -1,0 +1,19 @@
+{
+  "name": "@onemoon/webtesting",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Controlled local phishing simulation infrastructure for OneMoon security testing",
+  "type": "module",
+  "scripts": {
+    "start": "node server/start.js",
+    "start:site": "node server/site-server.js",
+    "start:collector": "node server/collector-server.js",
+    "setup:hosts": "bash scripts/setup-hosts.sh",
+    "test:smoke": "node scripts/smoke-test.js"
+  },
+  "keywords": [
+    "security-testing",
+    "phishing-simulation",
+    "onemoon"
+  ]
+}

