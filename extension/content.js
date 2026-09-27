@@ -11,6 +11,17 @@ function getOrigin(url) {
   }
 }
 
+function collectPageContent() {
+  const text = document.body?.innerText || '';
+  const lowerText = `${document.title} ${text}`.toLowerCase();
+  return {
+    title: document.title,
+    text: text.slice(0, 4000),
+    brandNames: ['apple', 'amazon', 'bank', 'binance', 'facebook', 'google', 'instagram', 'microsoft', 'netflix', 'paypal', 'steam', 'whatsapp']
+      .filter((brand) => lowerText.includes(brand))
+  };
+}
+
 function collectPageSnapshot() {
   const pageOrigin = location.origin;
   const forms = [...document.forms].map((form) => ({
@@ -49,6 +60,8 @@ function collectPageSnapshot() {
     externalResources,
     iframes,
     scripts,
+    pageContent: collectPageContent(),
+    cookieNames: document.cookie ? document.cookie.split(';').map((cookie) => cookie.split('=')[0].trim()).filter(Boolean) : [],
     title: document.title,
     hasPasswordField: Boolean(document.querySelector('input[type="password"]'))
   };

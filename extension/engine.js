@@ -7,6 +7,10 @@ const BRAND_NAMES = [
 	'microsoft', 'netflix', 'paypal', 'steam', 'whatsapp'
 ];
 
+const SOCIAL_ENGINEERING_TERMS = /verify your account|confirm your identity|account suspended|account locked|unusual activity|urgent action|required immediately|security alert|claim your prize|you have won/i;
+const SUSPICIOUS_DATA_TERMS = /login|signin|sign-in|password|passcode|token|credential|payment|checkout|billing|credit.?card|cvv|cvc|social.?security|otp|verification/i;
+const TRACKING_TERMS = /analytics|tracking|telemetry|beacon|pixel|advert|doubleclick|facebook\.com\/tr|google-analytics/i;
+
 const HOMOGLYPH_MAP = {
 	'0': 'o', '1': 'l', '3': 'e', '4': 'a', '5': 's', '7': 't',
 	'а': 'a', 'с': 'c', 'е': 'e', 'і': 'i', 'о': 'o', 'р': 'p', 'ѕ': 's',
@@ -103,6 +107,7 @@ function analyzePageSnapshot(snapshot = {}) {
 	const externalResources = snapshot.externalResources || [];
 	const iframes = snapshot.iframes || [];
 	const scripts = snapshot.scripts || [];
+	const externalRequests = snapshot.externalRequests || [];
 
 	if (forms.some((form) => form.requestsSensitiveData)) {
 		score += 25;
@@ -112,9 +117,15 @@ function analyzePageSnapshot(snapshot = {}) {
 		score += 25;
 		findings.push(finding('forms', 'high', 'A form submits data to another origin.', forms.filter((form) => form.crossOriginAction)));
 	}
-	if (externalResources.some((resource) => resource.crossOrigin && resource.type === 'script')) {
-		score += 12;
-		findings.push(finding('external-resources', 'medium', 'The page loads JavaScript from another origin.', externalResources.filter((resource) => resource.crossOrigin && resource.type === 'script')));
+	const crossOriginResources = externalResources.filter((resource) => resource.crossOrigin);
+	if (crossOriginResources.length > 0) {
+		score += Math.min(18, crossOriginResources.length * 4);
+		findings.push(finding('external-resources', 'medium', 'The page loads resources from another origin.', crossOriginResources));
+	}
+	const suspiciousResources = crossOriginResources.filter((resource) => SUSPICIOUS_DATA_TERMS.test(resource.url || '') || TRACKING_TERMS.test(resource.url || ''));
+	if (suspiciousResources.length > 0) {
+		score += Math.min(15, suspiciousResources.length * 5);
+		findings.push(finding('external-resources', 'medium', 'The page loads external resources associated with data collection or sensitive actions.', suspiciousResources));
 	}
 	if (iframes.some((frame) => frame.hidden || frame.crossOrigin)) {
 		score += 18;
@@ -132,12 +143,38 @@ function analyzePageSnapshot(snapshot = {}) {
 		score += Math.min(15, snapshot.thirdPartyCookieCount * 3);
 		findings.push(finding('cookies', 'low', 'The page set third-party cookies.', snapshot.thirdPartyCookieCount));
 	}
-	const suspiciousRequests = (snapshot.externalRequests || []).filter((request) =>
-		/xmlhttprequest|fetch|beacon/.test(request.type || '') && /login|signin|password|token|credential|payment|card/i.test(request.url || '')
+	const suspiciousRequests = externalRequests.filter((request) =>
+		/xmlhttprequest|fetch|beacon|ping/.test(request.type || '') && SUSPICIOUS_DATA_TERMS.test(request.url || '')
 	);
 	if (suspiciousRequests.length > 0) {
 		score += Math.min(25, suspiciousRequests.length * 10);
 		findings.push(finding('external-requests', 'high', 'The page sent request data to a credential or payment-related endpoint.', suspiciousRequests));
+	}
+	const crossOriginPosts = externalRequests.filter((request) => request.crossOrigin && request.method === 'POST');
+	if (crossOriginPosts.length > 0) {
+		score += Math.min(20, crossOriginPosts.length * 8);
+		findings.push(finding('external-requests', 'high', 'The page sent POST data to another origin.', crossOriginPosts));
+	}
+	const trackingRequests = externalRequests.filter((request) => request.crossOrigin && TRACKING_TERMS.test(request.url || ''));
+	if (trackingRequests.length > 0) {
+		score += Math.min(12, trackingRequests.length * 3);
+		findings.push(finding('cookies', 'low', 'The page contacted a known tracking or telemetry endpoint.', trackingRequests));
+	}
+	const pageContent = snapshot.pageContent || {};
+	const contentText = `${pageContent.title || ''} ${pageContent.text || ''}`;
+	if (SOCIAL_ENGINEERING_TERMS.test(contentText)) {
+		score += 18;
+		findings.push(finding('page-content', 'high', 'The page contains urgent account, identity, or reward language commonly used in social engineering.', contentText.slice(0, 500)));
+	}
+	const contentBrands = (pageContent.brandNames || []).filter((brand) => BRAND_NAMES.includes(brand));
+	if (contentBrands.length > 0 && !contentBrands.some((brand) => (snapshot.hostname || '').includes(brand))) {
+		score += 15;
+		findings.push(finding('page-content', 'high', 'The page uses recognizable brand language, but the hostname does not match that brand.', contentBrands));
+	}
+	const suspiciousCookies = (snapshot.cookieNames || []).filter((name) => /track|analytics|pixel|ad|session|token/i.test(name));
+	if (suspiciousCookies.length > 0) {
+		score += Math.min(10, suspiciousCookies.length * 2);
+		findings.push(finding('cookies', 'low', 'The page exposes cookies associated with tracking or session data.', suspiciousCookies));
 	}
 
 	return { score: clamp(score), findings };
@@ -145,7 +182,7 @@ function analyzePageSnapshot(snapshot = {}) {
 
 function analyzePage({ url, snapshot } = {}) {
 	const urlAnalysis = analyzeUrl(url || '');
-	const pageAnalysis = analyzePageSnapshot(snapshot);
+	const pageAnalysis = analyzePageSnapshot({ ...snapshot, hostname: urlAnalysis.hostname });
 	const findings = [...urlAnalysis.findings, ...pageAnalysis.findings];
 	const score = clamp(Math.round(urlAnalysis.score * 0.55 + pageAnalysis.score * 0.45));
 

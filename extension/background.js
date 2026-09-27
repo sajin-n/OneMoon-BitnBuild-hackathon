@@ -16,6 +16,17 @@ chrome.webRequest.onBeforeRequest.addListener(
     if (details.tabId < 0) return;
     const requests = requestsByTab.get(details.tabId) || [];
     requests.push({ type: details.type, url: details.url });
+    requests[requests.length - 1].method = details.method || 'GET';
+    requestsByTab.set(details.tabId, requests.slice(-100));
+  },
+  { urls: ['<all_urls>'] }
+);
+
+chrome.webRequest.onBeforeRedirect.addListener(
+  (details) => {
+    if (details.tabId < 0) return;
+    const requests = requestsByTab.get(details.tabId) || [];
+    requests.push({ type: 'redirect', url: details.redirectUrl, from: details.url });
     requestsByTab.set(details.tabId, requests.slice(-100));
   },
   { urls: ['<all_urls>'] }
@@ -48,7 +59,13 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   })();
   const snapshot = {
     ...message.snapshot,
-    externalRequests: requests,
+    externalRequests: requests.map((request) => ({
+      ...request,
+      crossOrigin: (() => {
+        try { return new URL(request.url).origin !== pageOrigin; } catch { return false; }
+      })()
+    })),
+    redirectCount: requests.filter((request) => request.type === 'redirect').length,
     externalRequestCount: requests.filter((request) => {
       try { return new URL(request.url).origin !== pageOrigin; } catch { return false; }
     }).length

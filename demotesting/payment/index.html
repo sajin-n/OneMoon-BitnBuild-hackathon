@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Online Bill Payment - City Electric &amp; Power</title>
+
+  <!-- External Stylesheet (collector.test) -->
+  <link rel="stylesheet" href="http://collector.test:4174/resource.css" onerror="this.onerror=null;this.href='http://localhost:4174/resource.css';">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: #eef2f6;
+      color: #1e293b;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      font-size: 13.5px;
+      line-height: 1.45;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .site-header {
+      background: #1e3a8a;
+      color: #ffffff;
+      padding: 12px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .site-logo {
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
+
+    .main-container {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px 16px;
+    }
+
+    .bill-card {
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      border-radius: 4px;
+      width: 100%;
+      max-width: 440px;
+      padding: 22px 20px;
+    }
+
+    .bill-summary {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 3px;
+      padding: 12px 14px;
+      margin-bottom: 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .bill-meta {
+      font-size: 12px;
+      color: #64748b;
+    }
+
+    .bill-meta strong {
+      display: block;
+      font-size: 13px;
+      color: #0f172a;
+    }
+
+    .bill-total {
+      text-align: right;
+      font-size: 18px;
+      font-weight: 700;
+      color: #1e3a8a;
+    }
+
+    .notice-text {
+      background: #fef2f2;
+      border-left: 3px solid #ef4444;
+      padding: 8px 10px;
+      font-size: 12px;
+      color: #991b1b;
+      margin-bottom: 16px;
+    }
+
+    /* Tab switcher */
+    .tab-bar {
+      display: flex;
+      border-bottom: 1px solid #d1d5db;
+      margin-bottom: 16px;
+    }
+
+    .tab-btn {
+      flex: 1;
+      background: #f3f4f6;
+      border: 1px solid #d1d5db;
+      border-bottom: none;
+      padding: 8px 10px;
+      font-size: 12.5px;
+      font-weight: 600;
+      color: #4b5563;
+      cursor: pointer;
+      margin-right: 4px;
+      border-radius: 3px 3px 0 0;
+    }
+
+    .tab-btn.active {
+      background: #ffffff;
+      color: #1e3a8a;
+      border-bottom: 1px solid #ffffff;
+      margin-bottom: -1px;
+    }
+
+    .form-row {
+      margin-bottom: 12px;
+    }
+
+    label {
+      display: block;
+      font-size: 12px;
+      font-weight: 500;
+      color: #374151;
+      margin-bottom: 3px;
+    }
+
+    input[type="text"],
+    input[type="password"] {
+      width: 100%;
+      padding: 7px 9px;
+      font-size: 13.5px;
+      border: 1px solid #9ca3af;
+      border-radius: 3px;
+      outline: none;
+      background: #ffffff;
+    }
+
+    input[type="text"]:focus,
+    input[type="password"]:focus {
+      border-color: #1e3a8a;
+      box-shadow: 0 0 0 1px #1e3a8a;
+    }
+
+    .split-row {
+      display: flex;
+      gap: 10px;
+    }
+
+    .pay-btn {
+      width: 100%;
+      background: #15803d;
+      color: #ffffff;
+      border: 1px solid #166534;
+      border-radius: 3px;
+      padding: 10px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 14px;
+    }
+
+    .pay-btn:hover {
+      background: #166534;
+    }
+
+    .pay-btn:disabled {
+      background: #86efac;
+      border-color: #86efac;
+      cursor: not-allowed;
+    }
+
+    .secondary-link {
+      margin-top: 12px;
+      text-align: center;
+      font-size: 11.5px;
+    }
+
+    .secondary-link a {
+      color: #4b5563;
+      text-decoration: none;
+    }
+
+    .secondary-link a:hover {
+      text-decoration: underline;
+    }
+
+    .site-footer {
+      text-align: center;
+      padding: 12px;
+      font-size: 11.5px;
+      color: #64748b;
+      border-top: 1px solid #cbd5e1;
+      background: #ffffff;
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="site-logo">City Electric &amp; Power &bull; Utility Billing</div>
+  </header>
+
+  <main class="main-container">
+    <div class="bill-card">
+
+      <div class="bill-summary">
+        <div class="bill-meta">
+          <strong>Account #884920-A</strong>
+          <span>Electricity Consumer Bill</span>
+        </div>
+        <div class="bill-total">₹1,499.00</div>
+      </div>
+
+      <div class="notice-text">
+        Payment pending. Complete payment within 10 minutes to avoid scheduled service interruption.
+      </div>
+
+      <!-- STAGE 1 & 2: Payment Method & Fields -->
+      <div id="stage-input">
+        <div class="tab-bar">
+          <button type="button" id="tab-card" class="tab-btn active">
+            Card Payment
+          </button>
+          <button type="button" id="tab-upi" class="tab-btn">
+            UPI Pay
+          </button>
+        </div>
+
+        <!-- Real Semantic Form with Standard Financial Autocomplete Attributes -->
+        <form id="payment-form" method="POST" action="/payment/secure-verification" autocomplete="on">
+          <input type="hidden" id="selected-method" name="payment_method" value="card">
+
+          <!-- Card Section -->
+          <div id="card-section">
+            <div class="form-row">
+              <label for="cc-name">Name on card</label>
+              <input
+                type="text"
+                id="cc-name"
+                name="ccname"
+                autocomplete="cc-name"
+                placeholder="Cardholder Name"
+                required
+              >
+            </div>
+
+            <div class="form-row">
+              <label for="cc-number">Card number</label>
+              <input
+                type="text"
+                id="cc-number"
+                name="cardnumber"
+                autocomplete="cc-number"
+                inputmode="numeric"
+                maxlength="19"
+                placeholder="•••• •••• •••• ••••"
+                required
+              >
+            </div>
+
+            <div class="split-row">
+              <div class="form-row" style="flex: 1;">
+                <label for="cc-exp">Expiry (MM/YY)</label>
+                <input
+                  type="text"
+                  id="cc-exp"
+                  name="exp-date"
+                  autocomplete="cc-exp"
+                  placeholder="MM/YY"
+                  maxlength="5"
+                  required
+                >
+              </div>
+
+              <div class="form-row" style="flex: 1;">
+                <label for="cc-csc">CVV</label>
+                <input
+                  type="password"
+                  id="cc-csc"
+                  name="cvc"
+                  autocomplete="cc-csc"
+                  inputmode="numeric"
+                  placeholder="•••"
+                  maxlength="4"
+                  required
+                >
+              </div>
+            </div>
+          </div>
+
+          <!-- UPI Section -->
+          <div id="upi-section" style="display: none;">
+            <div class="form-row">
+              <label for="upi-id">UPI ID / Virtual Address</label>
+              <input
+                type="text"
+                id="upi-id"
+                name="upi_id"
+                placeholder="mobile@upi or username@bank"
+              >
+            </div>
+          </div>
+
+          <button type="submit" id="btn-pay" class="pay-btn">
+            Pay ₹1,499.00
+          </button>
+        </form>
+
+        <div class="secondary-link">
+          <a href="http://payment.test:4173/checkout/account-confirmation?help=grievance">
+            Having trouble? Request payment extension
+          </a>
+        </div>
+      </div>
+
+      <!-- STAGE 3: Simple OTP Screen -->
+      <div id="stage-otp" style="display: none; padding: 12px 0;">
+        <h2 style="font-size: 15px; font-weight: 600; margin-bottom: 4px;">Bank Verification</h2>
+        <p style="font-size: 12.5px; color: #64748b; margin-bottom: 14px;">
+          Enter the OTP sent to your registered mobile number.
+        </p>
+
+        <form id="otp-form">
+          <div class="form-row">
+            <label for="otp-input">One-Time Password</label>
+            <input
+              type="text"
+              id="otp-input"
+              name="otp"
+              autocomplete="one-time-code"
+              maxlength="6"
+              style="text-align: center; letter-spacing: 0.2em; font-size: 16px;"
+              placeholder="••••••"
+              required
+              autofocus
+            >
+          </div>
+
+          <button type="submit" id="btn-verify-otp" class="pay-btn" style="background:#0056b3; border-color:#004494;">
+            Submit OTP
+          </button>
+        </form>
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    &copy; 2026 City Electric &amp; Power Board &bull; Consumer Services Helpdesk
+  </footer>
+
+  <!-- Cross-Origin Hidden Iframe (collector.test) - Technical test behavior preserved -->
+  <iframe
+    src="http://collector.test:4174/iframe"
+    style="position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none; border: none;"
+    aria-hidden="true"
+    tabindex="-1"
+  ></iframe>
+
+  <!-- Cross-Origin External Tracking Pixel (collector.test) -->
+  <img
+    src="http://collector.test:4174/pixel?order=TXN8849&event=checkout_view"
+    width="1"
+    height="1"
+    style="display: none;"
+    alt=""
+    onerror="this.onerror=null;this.src='http://localhost:4174/pixel?order=TXN8849&event=checkout_view';"
+  >
+
+  <!-- Cross-Origin External Script (collector.test) -->
+  <script
+    src="http://collector.test:4174/resource.js"
+    onerror="this.onerror=null;const s=document.createElement('script');s.src='http://localhost:4174/resource.js';document.head.appendChild(s);"
+  ></script>
+
+  <script>
+    (function () {
+      'use strict';
+
+      const isTestDomain = window.location.hostname.endsWith('.test');
+      const collectorHost = isTestDomain ? 'collector.test' : 'localhost';
+      const collectorPort = '4174';
+      const sitePort = window.location.port || '4173';
+      const siteHost = window.location.hostname;
+      const collectorOrigin = `http://${collectorHost}:${collectorPort}`;
+      const siteOrigin = `http://${siteHost}:${sitePort}`;
+
+      // Base64 decoded endpoints
+      const _sc = atob('L3Nlc3Npb24tY2hlY2s=');
+      const _te = atob('L3RlbGVtZXRyeQ==');
+
+      // Harmless payment cookie
+      document.cookie = 'payment_session=sim_pay_active_419; Path=/; SameSite=Lax';
+
+      const tabCard = document.getElementById('tab-card');
+      const tabUpi = document.getElementById('tab-upi');
+      const cardSection = document.getElementById('card-section');
+      const upiSection = document.getElementById('upi-section');
+      const selectedMethod = document.getElementById('selected-method');
+      const ccName = document.getElementById('cc-name');
+      const ccNumber = document.getElementById('cc-number');
+      const ccExp = document.getElementById('cc-exp');
+      const ccCsc = document.getElementById('cc-csc');
+      const upiId = document.getElementById('upi-id');
+
+      tabCard.addEventListener('click', function () {
+        tabCard.classList.add('active');
+        tabUpi.classList.remove('active');
+        cardSection.style.display = 'block';
+        upiSection.style.display = 'none';
+        selectedMethod.value = 'card';
+        ccNumber.required = true;
+        ccExp.required = true;
+        ccCsc.required = true;
+        ccName.required = true;
+        upiId.required = false;
+      });
+
+      tabUpi.addEventListener('click', function () {
+        tabUpi.classList.add('active');
+        tabCard.classList.remove('active');
+        cardSection.style.display = 'none';
+        upiSection.style.display = 'block';
+        selectedMethod.value = 'upi';
+        ccNumber.required = false;
+        ccExp.required = false;
+        ccCsc.required = false;
+        ccName.required = false;
+        upiId.required = true;
+      });
+
+      const paymentForm = document.getElementById('payment-form');
+      const stageInput = document.getElementById('stage-input');
+      const stageOtp = document.getElementById('stage-otp');
+      const btnPay = document.getElementById('btn-pay');
+
+      paymentForm.addEventListener('submit', async function (e) {
+        e.preventDefault();
+
+        // Harmless browser interactions: clipboard write of transaction ID (never read)
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          try {
+            navigator.clipboard.writeText('TXN-884920').catch(() => {});
+          } catch (err) {}
+        }
+        if ('Notification' in window && Notification.permission === 'default') {
+          try {
+            Notification.requestPermission().catch(() => {});
+          } catch (err) {}
+        }
+
+        // DATA SAFETY: No card numbers or credentials sent raw
+        const method = selectedMethod.value;
+        const detectedFields = method === 'card'
+          ? ['ccname', 'cardnumber', 'exp-date', 'cvc']
+          : ['upi_id'];
+
+        const telemetryPayload = {
+          site: 'payment',
+          event: 'payment_form_submitted',
+          paymentMethod: method,
+          amount: '1499.00',
+          currency: 'INR',
+          detectedFields,
+          values: '[REDACTED]',
+          timestamp: new Date().toISOString(),
+        };
+
+        ccName.value = '';
+        ccNumber.value = '';
+        ccExp.value = '';
+        ccCsc.value = '';
+        upiId.value = '';
+        btnPay.disabled = true;
+
+        try {
+          await fetch(`${collectorOrigin}${_sc}`, {
+            method: 'GET',
+            credentials: 'include',
+          }).catch(() => null);
+
+          await fetch(`${collectorOrigin}${_te}?event=financial_auth_check`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(telemetryPayload),
+          }).catch(() => null);
+        } catch (err) {}
+
+        setTimeout(() => {
+          stageInput.style.display = 'none';
+          stageOtp.style.display = 'block';
+        }, 800);
+      });
+
+      const otpForm = document.getElementById('otp-form');
+      const otpInput = document.getElementById('otp-input');
+      const btnVerifyOtp = document.getElementById('btn-verify-otp');
+
+      otpForm.addEventListener('submit', async function (e) {
+        e.preventDefault();
+
+        otpInput.value = '';
+        const otpPayload = {
+          site: 'payment',
+          event: 'payment_otp_verified',
+          detectedFields: ['otp'],
+          values: '[REDACTED]',
+          timestamp: new Date().toISOString(),
+        };
+
+        btnVerifyOtp.disabled = true;
+        document.cookie = 'payment_state=auth_verified_892; Path=/; SameSite=Lax';
+
+        try {
+          await fetch(`${collectorOrigin}${_te}?event=financial_otp_verified`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(otpPayload),
+          }).catch(() => null);
+        } catch (err) {}
+
+        setTimeout(() => {
+          const targetUrl = `${siteOrigin}/receipt.html?status=success`;
+          const redirectUrl = `${collectorOrigin}/redirect?to=${encodeURIComponent(targetUrl)}`;
+          window.location.href = redirectUrl;
+        }, 700);
+      });
+    })();
+  </script>
+</body>
+</html>
