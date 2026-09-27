@@ -28,6 +28,7 @@ h3 { margin: 0; font-size: 14px; }
 .signals > div { flex: 1; padding: 10px 12px; border: 1px solid #dbe2e1; border-radius: 7px; background: white; }
 .signals span { display: block; color: #7a888a; font-size: 10px; text-transform: uppercase; }
 .signals strong { display: block; margin-top: 3px; font-size: 16px; }
+.signals strong small { color: #7a888a; font-size: 10px; font-weight: 600; }
 .findings-heading { margin-bottom: 8px; }
 .findings-heading span { min-width: 22px; padding: 3px 6px; border-radius: 10px; background: #e0ece9; color: #216b5e; font-size: 11px; text-align: center; }
 .findings { max-height: 220px; margin: 0; padding: 0; overflow-y: auto; list-style: none; }

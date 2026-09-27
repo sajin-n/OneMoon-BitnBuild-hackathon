@@ -1,12 +1,12 @@
-# OneMoon
+# ThreatSight
 
 ## Private, explainable phishing protection for the web
 
-OneMoon is a Chrome extension that helps people answer a simple question before they trust a webpage:
+ThreatSight is a Chrome extension that helps people answer a simple question before they trust a webpage:
 
 > **Does this page look safe, or is it trying to make me surrender something valuable?**
 
-Instead of relying on a black-box verdict or sending browsing data to a remote service, OneMoon inspects the current page locally. It combines the page URL, visible page structure, forms, scripts, frames, resources, and observed network activity into a risk report that explains why a page looks suspicious.
+Instead of relying on a black-box verdict or sending browsing data to a remote service, ThreatSight inspects the current page locally. It combines the page URL, visible page structure, forms, scripts, frames, resources, and observed network activity into a risk report that explains why a page looks suspicious.
 
 The goal is not to replace user judgment. The goal is to give users a fast, understandable second opinion at the moment a page asks for a password, payment detail, verification code, or other sensitive information.
 
@@ -14,13 +14,13 @@ The goal is not to replace user judgment. The goal is to give users a fast, unde
 
 Modern phishing pages are designed to look familiar. A fake login page can copy a trusted brand, use a convincing domain name, load content from several origins, hide an iframe, or quietly send credentials somewhere unexpected. A basic URL blocklist often misses these pages, while an unexplained warning does not help a user decide what to do next.
 
-OneMoon addresses both gaps:
+ThreatSight addresses both gaps:
 
 - **Broader evidence:** it looks at the URL and the page's behavior, not just whether a domain is known.
 - **Explainable results:** every score is backed by findings and evidence.
 - **Privacy by design:** analysis happens in the extension, with no page data sent to an external service.
 
-## How OneMoon works
+## How ThreatSight works
 
 ```text
 Current tab
@@ -80,7 +80,7 @@ URL evidence contributes 55% of the final score and page evidence contributes 45
 
 ## Privacy model
 
-OneMoon is designed around local analysis:
+ThreatSight is designed around local analysis:
 
 - Page inspection runs inside the extension.
 - The detection engine is deterministic and auditable JavaScript.
@@ -96,13 +96,13 @@ Local detection is intentionally transparent. A future AI-assisted layer could s
 2. Turn on **Developer mode**.
 3. Choose **Load unpacked**.
 4. Select the repository's `extension/` folder.
-5. Open a webpage, then click the OneMoon extension icon to view its report.
+5. Open a webpage, then click the ThreatSight extension icon to view its report.
 
 To refresh an edited extension, return to `chrome://extensions` and click the extension's reload button.
 
 ## Demonstration scenarios
 
-The `demotesting/` folder contains a local login-page scenario for demonstrating how OneMoon reacts when a page requests sensitive information. For a useful demo, show the contrast between:
+The `demotesting/` folder contains a local login-page scenario for demonstrating how ThreatSight reacts when a page requests sensitive information. For a useful demo, show the contrast between:
 
 1. A normal page with no suspicious signals.
 2. A page with a password or payment form.

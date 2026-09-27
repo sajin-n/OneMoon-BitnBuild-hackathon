@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Phishing Detector</title>
+  <title>ThreatSight</title>
   <link rel="stylesheet" href="popup.css">
 </head>
 <body>
@@ -11,7 +11,7 @@
     <header class="header">
       <div>
         <p class="eyebrow">LOCAL ANALYSIS</p>
-        <h1>Phishing Detector</h1>
+        <h1>ThreatSight</h1>
       </div>
       <button id="refresh" class="icon-button" type="button" title="Analyze current page" aria-label="Analyze current page">↻</button>
     </header>
@@ -28,8 +28,8 @@
         </div>
       </div>
       <div class="signals">
-        <div><span>URL</span><strong id="url-signal">--</strong></div>
-        <div><span>Page</span><strong id="page-signal">--</strong></div>
+        <div><span>URL</span><strong><span id="url-signal">--</span> <small>score</small></strong></div>
+        <div><span>Page</span><strong><span id="page-signal">--</span> <small>score</small></strong></div>
       </div>
       <div class="findings-heading"><h3>Findings</h3><span id="finding-count">0</span></div>
       <ul id="findings" class="findings"></ul>
