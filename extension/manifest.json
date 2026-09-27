@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "Private Phishing Detector",
+  "name": "ThreatSight",
   "version": "0.1.0",
-  "description": "Collects local page signals for explainable phishing risk analysis.",
+  "description": "Private, explainable phishing risk analysis for the current webpage.",
   "permissions": [
     "storage",
     "tabs",
@@ -22,7 +22,7 @@
     }
   ],
   "action": {
-    "default_title": "Phishing Detector",
+    "default_title": "ThreatSight",
     "default_popup": "popup.html"
   }
 }
